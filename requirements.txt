@@ -16,7 +16,7 @@ httpx
 huggingface-hub
 idna
 jinja2
-kernels
+flash-attn @ https://github.com/mjun0812/flash-attention-prebuild-wheels/releases/download/v0.7.11/flash_attn-2.8.3%2Bcu128torch2.7-cp312-cp312-win_amd64.whl
 kiwisolver
 markdown-it-py
 markupsafe
@@ -43,6 +43,7 @@ six
 sympy
 tiktoken
 torch
+triton-windows
 tqdm
 typer
 typing-extensions
