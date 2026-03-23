@@ -12,9 +12,15 @@ To set up a new experiment, work with the user to:
    - `README.md` — repository context.
    - `prepare.py` — fixed constants, data prep, tokenizer, dataloader, evaluation. Do not modify.
    - `train.py` — the file you modify. Model architecture, optimizer, training loop.
-4. **Verify data exists**: Check that `./data/` contains data shards and a tokenizer. If not, tell the human to run `.venv\Scripts\python prepare.py`.
-5. **Initialize results.tsv**: Create `results.tsv` with just the header row. The baseline will be recorded after the first run.
-6. **Confirm and go**: Confirm setup looks good.
+   - `hardware.py` — hardware detection module. Read it once at startup to understand the available compute.
+4. **Detect hardware**: Run `.venv\Scripts\python hardware.py` once at startup to detect the available hardware. Use this information to:
+   - Set the correct peak FLOPS constant based on the GPU's compute capability (replace hardcoded H100 value)
+   - Adjust batch size based on available VRAM
+   - Select optimal precision (bfloat16 if supported)
+   - Warn if GPU is unsupported (older than sm_80)
+5. **Verify data exists**: Check that `./data/` contains data shards and a tokenizer. If not, tell the human to run `.venv\Scripts\python prepare.py`.
+6. **Initialize results.tsv**: Create `results.tsv` with just the header row. The baseline will be recorded after the first run.
+7. **Confirm and go**: Confirm setup looks good.
 
 Once you get confirmation, kick off the experimentation.
 
