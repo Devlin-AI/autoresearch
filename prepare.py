@@ -3,8 +3,8 @@ One-time data preparation for autoresearch experiments.
 Downloads data shards and trains a BPE tokenizer.
 
 Usage:
-    python prepare.py                  # full prep (download + tokenizer)
-    python prepare.py --num-shards 8   # download only 8 shards (for testing)
+    .venv\Scripts\python prepare.py                  # full prep (download + tokenizer)
+    .venv\Scripts\python prepare.py --num-shards 8   # download only 8 shards (for testing)
 
 Data and tokenizer are stored in ~/.cache/autoresearch/.
 """

@@ -20,21 +20,19 @@ If you are new to neural networks, this ["Dummy's Guide"](https://x.com/hooeem/s
 
 ## Quick start
 
-**Requirements:** A single NVIDIA GPU (tested on H100), Python 3.10+, [uv](https://docs.astral.sh/uv/).
+**Requirements:** A single NVIDIA GPU (tested on H100), Python 3.10+.
 
 ```bash
 
-# 1. Install uv project manager (if you don't already have it)
-curl -LsSf https://astral.sh/uv/install.sh | sh
+# 1. Create virtual environment and install dependencies
+python -m venv .venv
+.venv\Scripts\pip install -r requirements.txt
 
-# 2. Install dependencies
-uv sync
+# 2. Download data and train tokenizer (one-time, ~2 min)
+.venv\Scripts\python prepare.py
 
-# 3. Download data and train tokenizer (one-time, ~2 min)
-uv run prepare.py
-
-# 4. Manually run a single training experiment (~5 min)
-uv run train.py
+# 3. Manually run a single training experiment (~5 min)
+.venv\Scripts\python train.py
 ```
 
 If the above commands all work ok, your setup is working and you can go into autonomous research mode.

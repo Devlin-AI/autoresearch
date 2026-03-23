@@ -1,7 +1,7 @@
 """
 Autoresearch pretraining script. Single-GPU, single-file.
 Cherry-picked and simplified from nanochat.
-Usage: uv run train.py
+Usage: .venv\Scripts\python train.py
 """
 
 import os
