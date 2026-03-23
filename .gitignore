@@ -25,3 +25,6 @@ results.tsv
 
 # Lock files
 uv.lock
+
+# Log files
+*.log
