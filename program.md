@@ -9,12 +9,12 @@ To set up a new experiment, work with the user to:
 1. **Agree on a run tag**: propose a tag based on today's date (e.g. `mar5`). The branch `autoresearch/<tag>` must not already exist — this is a fresh run.
 2. **Create the branch**: `git checkout -b autoresearch/<tag>` from current master.
 3. **Read the in-scope files**: The repo is small. Read these files for full context:
-   - `README.md` — repository context.
-   - `prepare.py` — fixed constants, data prep, tokenizer, dataloader, evaluation. Do not modify.
-   - `train.py` — the file you modify. Model architecture, optimizer, training loop.
-   - `hardware.py` — hardware detection module. Read it once at startup to understand the available compute.
+   - `README.md`: repository context.
+   - `prepare.py`: fixed constants, data prep, tokenizer, dataloader, evaluation. Do not modify.
+   - `train.py`: the file you modify. Model architecture, optimizer, training loop.
+   - `hardware.py`: hardware detection module. Read it once at startup to understand the available compute.
 4. **Detect hardware**: Run `.venv\Scripts\python hardware.py` once at startup to detect the available hardware. Use this information to:
-   - Set the correct peak FLOPS constant based on the GPU's compute capability (replace hardcoded H100 value)
+   - Set the correct peak FLOPS constant based on the GPU's compute capability (replace hardcoded value)
    - Adjust batch size based on available VRAM
    - Select optimal precision (bfloat16 if supported)
    - Warn if GPU is unsupported (older than sm_80)
@@ -37,11 +37,11 @@ Each experiment runs on a single GPU. The training script runs for a **fixed tim
 - Modify the evaluation harness. The `evaluate_bpb` function in `prepare.py` is the ground truth metric.
 - Modify the `data/` directory. It contains the cached dataset and tokenizer.
 
-**The goal is simple: get the lowest val_bpb.** Since the time budget is fixed, you don't need to worry about training time — it's always 5 minutes. Everything is fair game: change the architecture, the optimizer, the hyperparameters, the batch size, the model size. The only constraint is that the code runs without crashing and finishes within the time budget.
+**The goal is simple: get the lowest val_bpb.** Since the time budget is fixed, you don't need to worry about training time, it's always 5 minutes after the first 10 steps. Everything is fair game: change the architecture, the optimizer, the hyperparameters, the batch size, the model size. The only constraint is that the code runs without crashing and finishes within the time budget and available hardware.
 
 **VRAM** is a soft constraint. Some increase is acceptable for meaningful val_bpb gains, but it should not blow up dramatically.
 
-**Simplicity criterion**: All else being equal, simpler is better. A small improvement that adds ugly complexity is not worth it. Conversely, removing something and getting equal or better results is a great outcome — that's a simplification win. When evaluating whether to keep a change, weigh the complexity cost against the improvement magnitude. A 0.001 val_bpb improvement that adds 20 lines of hacky code? Probably not worth it. A 0.001 val_bpb improvement from deleting code? Definitely keep. An improvement of ~0 but much simpler code? Keep.
+**Simplicity criterion**: All else being equal, simpler is better. A small improvement that adds ugly complexity is not worth it. Conversely, removing something and getting equal or better results is a great outcome, that's a simplification win. When evaluating whether to keep a change, weigh the complexity cost against the improvement magnitude. A 0.001 val_bpb improvement that adds 20 lines of hacky code? Probably not worth it. A 0.001 val_bpb improvement from deleting code? Definitely keep. An improvement of ~0 but much simpler code? Keep.
 
 **The first run**: Your very first run should always be to establish the baseline, so you will run the training script as is.
 
